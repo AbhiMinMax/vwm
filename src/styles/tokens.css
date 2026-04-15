@@ -1,0 +1,52 @@
+:root {
+  /* Colors */
+  --color-bg: #0a0a0a;
+  --color-surface: #141414;
+  --color-surface-raised: #1e1e1e;
+  --color-border: #2a2a2a;
+  --color-border-strong: #3a3a3a;
+  --color-text-primary: #f0f0f0;
+  --color-text-secondary: #888;
+  --color-text-muted: #555;
+  --color-accent: #e8ff4a;
+  --color-correct: #4aff8c;
+  --color-incorrect: #ff4a6e;
+  --color-probe: #4ae8ff;
+
+  /* Typography */
+  --font-display: 'DM Mono', monospace;
+  --font-body: 'Fraunces', serif;
+  --font-ui: 'DM Sans', sans-serif;
+
+  /* Font sizes */
+  --text-xs: 11px;
+  --text-sm: 13px;
+  --text-base: 15px;
+  --text-md: 18px;
+  --text-lg: 20px;
+  --text-xl: 24px;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-2xl: 64px;
+
+  /* Sizing */
+  --tap-target-min: 56px;
+  --border-radius: 8px;
+  --border-radius-lg: 16px;
+  --border-radius-xl: 24px;
+
+  /* Motion */
+  --duration-fast: 150ms;
+  --duration-base: 300ms;
+  --duration-slow: 500ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Layout */
+  --max-width: 480px;
+  --screen-padding: 20px;
+}
