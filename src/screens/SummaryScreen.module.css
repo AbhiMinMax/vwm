@@ -1,12 +1,12 @@
 .screen {
   min-height: 100vh;
   background: var(--color-bg);
-  padding: 32px 20px 40px;
+  padding: 20px 20px 24px;
   max-width: 480px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 16px;
 }
 
 /* ── Header ── */
@@ -15,12 +15,11 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding-top: 8px;
 }
 
 .sessionLabel {
   font-family: var(--font-display);
-  font-size: 26px;
+  font-size: 22px;
   color: var(--color-text-primary);
 }
 
@@ -108,7 +107,7 @@
 }
 
 .primaryBtn {
-  padding: 16px 20px;
+  padding: 13px 20px;
   background: var(--color-accent);
   border: none;
   border-radius: 8px;
@@ -116,12 +115,12 @@
   font-family: var(--font-display);
   font-size: 14px;
   cursor: pointer;
-  min-height: 56px;
+  min-height: 48px;
   -webkit-tap-highlight-color: transparent;
 }
 
 .secondaryBtn {
-  padding: 14px 20px;
+  padding: 11px 20px;
   background: transparent;
   border: 1px solid var(--color-border);
   border-radius: 8px;
@@ -129,7 +128,7 @@
   font-family: var(--font-display);
   font-size: 14px;
   cursor: pointer;
-  min-height: 56px;
+  min-height: 44px;
   -webkit-tap-highlight-color: transparent;
 }
 

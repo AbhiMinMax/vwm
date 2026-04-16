@@ -1,12 +1,12 @@
 .screen {
   min-height: 100vh;
   background: var(--color-bg);
-  padding: 16px 20px 40px;
+  padding: 14px 20px 24px;
   max-width: 480px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 20px;
 }
 
 /* ── Nav ── */
@@ -274,7 +274,7 @@
 }
 
 .resetBtn {
-  padding: 12px 16px;
+  padding: 10px 16px;
   background: transparent;
   border: 1px solid var(--color-border);
   border-radius: 6px;
@@ -282,7 +282,7 @@
   font-family: var(--font-display);
   font-size: 13px;
   cursor: pointer;
-  min-height: 48px;
+  min-height: 44px;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -323,4 +323,60 @@
   cursor: pointer;
   min-height: 44px;
   -webkit-tap-highlight-color: transparent;
+}
+
+/* ── Export / Import ── */
+
+.dataActions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.exportBtn {
+  padding: 10px 16px;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  color: var(--color-text-muted);
+  font-family: var(--font-display);
+  font-size: 12px;
+  cursor: pointer;
+  min-height: 40px;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color 120ms, color 120ms;
+}
+
+.exportBtn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.importBtn {
+  padding: 10px 16px;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  color: var(--color-text-muted);
+  font-family: var(--font-display);
+  font-size: 12px;
+  cursor: pointer;
+  min-height: 40px;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color 120ms, color 120ms;
+}
+
+.importBtn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.importMsg {
+  font-family: var(--font-display);
+  font-size: 11px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  border-left: 2px solid var(--color-accent);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
 }

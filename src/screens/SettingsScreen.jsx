@@ -1,7 +1,7 @@
 // SettingsScreen.jsx — all training parameters, domain toggles, difficulty override,
 // data management, and dev mode.
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useStorage }  from '../hooks/useStorage.js'
 import { createDefaultUserProfile, DEFAULT_SETTINGS, DIMENSION_LABELS } from '../engine/defaults.js'
@@ -63,7 +63,45 @@ export default function SettingsScreen() {
   const [settings, setSettings] = useStorage('vwm_settings', DEFAULT_SETTINGS)
   const [profile, setProfile]   = useStorage('vwm_user_profile', createDefaultUserProfile())
   const [history, setHistory]   = useStorage('vwm_session_history', [])
-  const [resetStep, setResetStep] = useState(0) // 0=idle, 1=confirm
+  const [resetStep, setResetStep] = useState(0)   // 0=idle, 1=confirm
+  const [importMsg, setImportMsg] = useState('')
+  const fileInputRef = useRef(null)
+
+  function handleExport() {
+    const payload = {
+      vwm_user_profile:    profile,
+      vwm_session_history: history,
+      vwm_settings:        settings,
+      exported_at:         new Date().toISOString(),
+    }
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' })
+    const url  = URL.createObjectURL(blob)
+    const a    = document.createElement('a')
+    a.href     = url
+    a.download = `vwm-data-${new Date().toISOString().slice(0, 10)}.json`
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+
+  function handleImportFile(e) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = (ev) => {
+      try {
+        const data = JSON.parse(ev.target.result)
+        if (data.vwm_user_profile)    setProfile(data.vwm_user_profile)
+        if (data.vwm_session_history) setHistory(data.vwm_session_history)
+        if (data.vwm_settings)        setSettings(data.vwm_settings)
+        setImportMsg('Import successful.')
+      } catch (err) {
+        console.error('[SettingsScreen] Import failed:', err)
+        setImportMsg('Import failed — invalid file.')
+      }
+      e.target.value = ''
+    }
+    reader.readAsText(file)
+  }
 
   function set(key, val) {
     setSettings(s => ({ ...s, [key]: val }))
@@ -227,6 +265,23 @@ export default function SettingsScreen() {
             <p className={styles.empty}>No sessions yet.</p>
           )}
         </div>
+
+        <div className={styles.dataActions}>
+          <button className={styles.exportBtn} onClick={handleExport}>
+            Export JSON
+          </button>
+          <button className={styles.importBtn} onClick={() => fileInputRef.current?.click()}>
+            Import JSON
+          </button>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".json,application/json"
+            style={{ display: 'none' }}
+            onChange={handleImportFile}
+          />
+        </div>
+        {importMsg && <p className={styles.importMsg}>{importMsg}</p>}
 
         <div className={styles.resetArea}>
           {resetStep === 0 ? (
