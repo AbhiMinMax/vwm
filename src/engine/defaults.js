@@ -37,6 +37,7 @@ export const DEFAULT_SETTINGS = {
   concurrentStream:     false,
   preferredDomains:     [],        // empty = all domains enabled
   sessionLength:        8,
+  workoutLength:        1,
   autoAdvance:          true,
   devMode:              false,
   manualOverride:       false,

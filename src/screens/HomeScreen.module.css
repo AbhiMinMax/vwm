@@ -1,14 +1,12 @@
 .screen {
+  height: 100vh;
   height: 100dvh;
-  height: 100vh; /* fallback */
   background: var(--color-bg);
   display: flex;
   flex-direction: column;
-  padding: 16px 20px 20px;
+  padding: 24px 20px 24px;
   max-width: 480px;
   margin: 0 auto;
-  gap: 14px;
-  overflow-y: auto;
 }
 
 /* ── Top ── */
@@ -16,8 +14,9 @@
 .top {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding-top: 8px;
+  gap: 6px;
+  flex: 1;
+  padding-top: 16px;
 }
 
 .appName {
@@ -30,95 +29,20 @@
 
 .sessionCount {
   font-family: var(--font-display);
-  font-size: 26px;
+  font-size: 32px;
   color: var(--color-text-primary);
   line-height: 1.1;
 }
 
-/* ── Sections ── */
-
-.section {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.sectionLabel {
-  font-family: var(--font-display);
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--color-text-muted);
-}
-
-.dimList {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-/* ── History ── */
-
-.historyList {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.historyRow {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  background: var(--color-surface);
-  border-radius: 6px;
-  border: 1px solid var(--color-border);
-}
-
-.historyNum {
-  font-family: var(--font-display);
-  font-size: 11px;
-  color: var(--color-text-muted);
-  min-width: 28px;
-}
-
-.historyType {
-  font-family: var(--font-display);
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--color-text-muted);
-  flex: 1;
-}
-
-.historyDomain {
-  font-family: var(--font-display);
-  font-size: 10px;
-  color: var(--color-text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.historyScore {
+.lastScore {
   font-family: var(--font-display);
   font-size: 12px;
-  color: var(--color-accent);
-  min-width: 36px;
-  text-align: right;
-}
-
-.historyDate {
-  font-family: var(--font-display);
-  font-size: 10px;
   color: var(--color-text-muted);
-  min-width: 44px;
-  text-align: right;
 }
 
 /* ── Actions ── */
 
 .actions {
-  margin-top: auto;
   display: flex;
   flex-direction: column;
   gap: 10px;

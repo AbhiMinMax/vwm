@@ -172,6 +172,12 @@ export default function SettingsScreen() {
     { label: '12', value: 12 },
     { label: '16', value: 16 },
   ]
+  const WORKOUT_OPTIONS = [
+    { label: '1',  value: 1 },
+    { label: '2',  value: 2 },
+    { label: '3',  value: 3 },
+    { label: '5',  value: 5 },
+  ]
   const DELAY_OPTIONS = [
     { label: 'None', value: 'immediate' },
     { label: 'Short', value: 'short' },
@@ -196,6 +202,13 @@ export default function SettingsScreen() {
             options={LENGTH_OPTIONS}
             value={settings.sessionLength}
             onChange={v => set('sessionLength', v)}
+          />
+        } />
+        <Row label="Workout length" info="Number of sessions chained together into one workout. Each session uses a different template. Results are recorded per session." control={
+          <SegmentedControl
+            options={WORKOUT_OPTIONS}
+            value={settings.workoutLength ?? 1}
+            onChange={v => set('workoutLength', v)}
           />
         } />
         <Row label="Probe delay" info="Pause between the last sentence and the probe appearing. Longer delays stress working memory retention." control={

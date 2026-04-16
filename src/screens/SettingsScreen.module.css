@@ -1,6 +1,6 @@
 .screen {
+  min-height: 100vh;
   min-height: 100dvh;
-  min-height: 100vh; /* fallback */
   background: var(--color-bg);
   padding: 12px 20px 24px;
   max-width: 480px;
