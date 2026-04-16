@@ -1,0 +1,50 @@
+.result {
+  border-radius: 8px;
+  padding: 20px 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.correct {
+  background: rgba(72, 199, 142, 0.15);
+  border: 1px solid rgba(72, 199, 142, 0.4);
+}
+
+.incorrect {
+  background: rgba(255, 100, 100, 0.12);
+  border: 1px solid rgba(255, 100, 100, 0.35);
+}
+
+.icon {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.correct .icon { color: #48c78e; }
+.incorrect .icon { color: #f96060; }
+
+.label {
+  font-family: var(--font-display);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.correct .label { color: #48c78e; }
+.incorrect .label { color: #f96060; }
+
+.correctAnswer {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  color: var(--color-text-primary);
+  margin-top: 4px;
+}
+
+.failureMode {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  color: var(--color-text-muted);
+}

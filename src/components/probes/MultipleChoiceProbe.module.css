@@ -1,0 +1,65 @@
+.container {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.typeLabel {
+  font-family: var(--font-display);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-accent);
+}
+
+.question {
+  font-family: var(--font-ui);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-text-primary);
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 56px;
+  padding: 12px 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 120ms, border-color 120ms;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.option:active {
+  background: var(--color-surface-raised);
+}
+
+.option.selected {
+  background: var(--color-surface-raised);
+  border-color: var(--color-accent);
+}
+
+.optionId {
+  font-family: var(--font-display);
+  font-size: 12px;
+  color: var(--color-text-muted);
+  min-width: 16px;
+}
+
+.optionLabel {
+  font-family: var(--font-ui);
+  font-size: 15px;
+  color: var(--color-text-primary);
+}
