@@ -14,7 +14,7 @@ function fillLabel(text, filledSlots) {
  *   filledSlots — { E1: 'Alderman', E2: 'Reyes', ... }
  *   onAnswer    — ({ optionId, isCorrect, failureMode, responseTimeMs }) => void
  */
-export default function MultipleChoiceProbe({ probe, filledSlots, onAnswer }) {
+export default function MultipleChoiceProbe({ probe, filledSlots, onAnswer, hideHeader }) {
   const [selected, setSelected] = useState(null)
   const startedAt = useState(() => Date.now())[0]
 
@@ -38,8 +38,8 @@ export default function MultipleChoiceProbe({ probe, filledSlots, onAnswer }) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.typeLabel}>{probe.subtype ?? probe.type}</div>
-      <div className={styles.question}>{question}</div>
+      {!hideHeader && <div className={styles.typeLabel}>{probe.subtype ?? probe.type}</div>}
+      {!hideHeader && <div className={styles.question}>{question}</div>}
       <div className={styles.options}>
         {probe.options.map(option => (
           <button

@@ -1,12 +1,14 @@
 .screen {
-  min-height: 100vh;
+  height: 100dvh;
+  height: 100vh; /* fallback */
   background: var(--color-bg);
   display: flex;
   flex-direction: column;
-  padding: 20px 20px 24px;
+  padding: 16px 20px 20px;
   max-width: 480px;
   margin: 0 auto;
-  gap: 18px;
+  gap: 14px;
+  overflow-y: auto;
 }
 
 /* ── Top ── */

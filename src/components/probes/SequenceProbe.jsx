@@ -14,7 +14,7 @@ function fillLabel(text, filledSlots) {
  *   filledSlots — slot values map
  *   onAnswer    — ({ sequence, isCorrect, responseTimeMs }) => void
  */
-export default function SequenceProbe({ probe, filledSlots, onAnswer }) {
+export default function SequenceProbe({ probe, filledSlots, onAnswer, hideHeader }) {
   const [order, setOrder]   = useState([]) // array of option ids in tap order
   const startedAt           = useState(() => Date.now())[0]
 
@@ -39,8 +39,8 @@ export default function SequenceProbe({ probe, filledSlots, onAnswer }) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.typeLabel}>temporal sequencing</div>
-      <div className={styles.question}>{fillLabel(probe.question, filledSlots)}</div>
+      {!hideHeader && <div className={styles.typeLabel}>temporal sequencing</div>}
+      {!hideHeader && <div className={styles.question}>{fillLabel(probe.question, filledSlots)}</div>}
       <div className={styles.instruction}>Tap items in chronological order</div>
 
       <div className={styles.grid}>

@@ -9,7 +9,7 @@ import styles from './FlagProbe.module.css'
  *   sentences — array of sentence strings (the full session sentences at probe time)
  *   onAnswer  — ({ flaggedSentences, isCorrect, wrongAnswerType, responseTimeMs }) => void
  */
-export default function FlagProbe({ probe, sentences, onAnswer }) {
+export default function FlagProbe({ probe, sentences, onAnswer, hideHeader }) {
   const [flagged, setFlagged]     = useState(null)  // sentence index (0-based) or 'none'
   const [confirmed, setConfirmed] = useState(false)
   const startedAt                 = useState(() => Date.now())[0]
@@ -53,8 +53,8 @@ export default function FlagProbe({ probe, sentences, onAnswer }) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.typeLabel}>{probe.subtype ?? 'vigilance'}</div>
-      <div className={styles.question}>{probe.question}</div>
+      {!hideHeader && <div className={styles.typeLabel}>{probe.subtype ?? 'vigilance'}</div>}
+      {!hideHeader && <div className={styles.question}>{probe.question}</div>}
 
       <div className={styles.sentences}>
         {sentences.map((text, idx) => (
