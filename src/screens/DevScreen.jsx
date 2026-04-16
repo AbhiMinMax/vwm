@@ -11,6 +11,7 @@ import { templates }              from '../data/templates.js'
 import { domains }                from '../data/domains.js'
 import StreamRenderer             from '../components/stream/StreamRenderer.jsx'
 import ProbeOverlay               from '../components/probes/ProbeOverlay.jsx'
+import InfoTip                    from '../components/ui/InfoTip.jsx'
 import styles                     from './DevScreen.module.css'
 
 // ─── Shared data for testers ──────────────────────────────────────────────────
@@ -102,7 +103,9 @@ function StreamTester() {
   return (
     <div className={styles.panel}>
       <div className={styles.field}>
-        <label className={styles.fieldLabel}>Template</label>
+        <label className={styles.fieldLabel}>
+          Template <InfoTip text="Which template to stream. Each has a fixed sentence pattern, slot types, and probe." />
+        </label>
         <select
           className={styles.select}
           value={templateIdx}
@@ -115,7 +118,9 @@ function StreamTester() {
       </div>
 
       <div className={styles.field}>
-        <label className={styles.fieldLabel}>Speed</label>
+        <label className={styles.fieldLabel}>
+          Speed <InfoTip text="Sentence display speed. Pressure enforces a strict per-sentence time limit." />
+        </label>
         <div className={styles.chips}>
           {['slow','normal','fast','pressure'].map(s => (
             <button
@@ -130,6 +135,7 @@ function StreamTester() {
       <label className={styles.checkRow}>
         <input type="checkbox" checked={autoAdv} onChange={e => setAutoAdv(e.target.checked)} />
         Auto-advance
+        <InfoTip text="Sentences advance automatically. Uncheck to tap through each sentence manually." />
       </label>
 
       <button className={styles.runBtn} onClick={() => { setLog([]); setRunning(true) }}>
@@ -162,7 +168,9 @@ function ProbeTester() {
   return (
     <div className={styles.panel}>
       <div className={styles.field}>
-        <label className={styles.fieldLabel}>Probe type</label>
+        <label className={styles.fieldLabel}>
+          Probe type <InfoTip text="binding: multiple choice about entity/object relationships. temporal_sequencing: order events chronologically. contradiction: flag the sentence that contradicts an earlier one." />
+        </label>
         <div className={styles.chips}>
           {Object.keys(PRESET_PROBES).map(t => (
             <button
@@ -412,14 +420,18 @@ function StressTest() {
   return (
     <div className={styles.panel}>
       <div className={styles.field}>
-        <label className={styles.fieldLabel}>Dimension</label>
+        <label className={styles.fieldLabel}>
+          Dimension <InfoTip text="Which cognitive dimension to stress-test. Runs 5 stimuli targeted at this dimension." />
+        </label>
         <select className={styles.select} value={dim} onChange={e => setDim(e.target.value)}>
           {ALL_DIMENSIONS.map(d => <option key={d} value={d}>{DIMENSION_LABELS[d]}</option>)}
         </select>
       </div>
 
       <div className={styles.field}>
-        <label className={styles.fieldLabel}>Level</label>
+        <label className={styles.fieldLabel}>
+          Level <InfoTip text="Difficulty level 1–5 for the selected dimension. 1 = easiest, 5 = hardest." />
+        </label>
         <div className={styles.chips}>
           {[1,2,3,4,5].map(l => (
             <button

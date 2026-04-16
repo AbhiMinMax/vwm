@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { useStorage }  from '../hooks/useStorage.js'
 import { createDefaultUserProfile, DEFAULT_SETTINGS, DIMENSION_LABELS } from '../engine/defaults.js'
 import { domains }     from '../data/domains.js'
+import InfoTip         from '../components/ui/InfoTip.jsx'
 import styles          from './SettingsScreen.module.css'
 
 // ─── Tiny re-usable controls ─────────────────────────────────────────────────
@@ -47,10 +48,13 @@ function Section({ title, children }) {
   )
 }
 
-function Row({ label, control }) {
+function Row({ label, control, info }) {
   return (
     <div className={styles.row}>
-      <span className={styles.rowLabel}>{label}</span>
+      <span className={styles.rowLabel}>
+        {label}
+        {info && <InfoTip text={info} />}
+      </span>
       {control}
     </div>
   )
@@ -148,6 +152,14 @@ export default function SettingsScreen() {
     setResetStep(0)
   }
 
+  const DIM_INFO = {
+    interference_pressure: 'How many competing entities and roles appear in the stream. Higher = more to track.',
+    signal_quality:        'How explicitly state changes are signalled. Lower = changes are more implied than stated.',
+    nesting_depth:         'Layers of belief attribution required (e.g. A thinks B believes C). Higher = deeper nesting.',
+    discourse_structure:   'How non-linear and complex the sentence ordering is.',
+    temporal_order:        'How scrambled the chronological sequence of events is.',
+  }
+
   const SPEED_OPTIONS = [
     { label: 'Slow',     value: 'slow' },
     { label: 'Normal',   value: 'normal' },
@@ -176,23 +188,23 @@ export default function SettingsScreen() {
 
       {/* Session parameters */}
       <Section title="Session parameters">
-        <Row label="Speed" control={
+        <Row label="Speed" info="How fast sentences appear. Pressure adds a strict per-sentence time limit." control={
           <SegmentedControl options={SPEED_OPTIONS} value={settings.speed} onChange={v => set('speed', v)} />
         } />
-        <Row label="Session length" control={
+        <Row label="Session length" info="Number of probes per session. More probes give the adaptive engine more signal." control={
           <SegmentedControl
             options={LENGTH_OPTIONS}
             value={settings.sessionLength}
             onChange={v => set('sessionLength', v)}
           />
         } />
-        <Row label="Probe delay" control={
+        <Row label="Probe delay" info="Pause between the last sentence and the probe appearing. Longer delays stress working memory retention." control={
           <SegmentedControl options={DELAY_OPTIONS} value={settings.probeDelay} onChange={v => set('probeDelay', v)} />
         } />
-        <Row label="Auto-advance" control={
+        <Row label="Auto-advance" info="Sentences advance automatically at the chosen speed. Turn off to tap through each one manually." control={
           <Toggle checked={settings.autoAdvance} onChange={v => set('autoAdvance', v)} />
         } />
-        <Row label="Concurrent stream" control={
+        <Row label="Concurrent stream" info="A second sentence stream plays alongside the main one, increasing interference load." control={
           <Toggle checked={settings.concurrentStream} onChange={v => set('concurrentStream', v)} />
         } />
       </Section>
@@ -220,7 +232,7 @@ export default function SettingsScreen() {
 
       {/* Difficulty override */}
       <Section title="Difficulty override">
-        <Row label="Manual override" control={
+        <Row label="Manual override" info="Disables the adaptive engine. You set each dimension level manually using the sliders below." control={
           <Toggle checked={settings.manualOverride} onChange={v => set('manualOverride', v)} />
         } />
         {settings.manualOverride && (
@@ -228,7 +240,10 @@ export default function SettingsScreen() {
             <p className={styles.overrideWarning}>Disables adaptive engine</p>
             {DIMS_WITH_LABELS.map(([key, label]) => (
               <div key={key} className={styles.sliderRow}>
-                <span className={styles.sliderLabel}>{label}</span>
+                <span className={styles.sliderLabel}>
+                  {label}
+                  <InfoTip text={DIM_INFO[key]} />
+                </span>
                 <input
                   type="range"
                   min={1} max={5} step={1}
@@ -304,7 +319,7 @@ export default function SettingsScreen() {
 
       {/* Dev mode */}
       <Section title="Developer">
-        <Row label="Dev mode" control={
+        <Row label="Dev mode" info="Shows the Dev screen link on the home screen. Useful for testing templates and inspecting the adaptive engine." control={
           <Toggle checked={settings.devMode} onChange={v => set('devMode', v)} />
         } />
       </Section>

@@ -1,0 +1,43 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 1px solid var(--color-text-muted);
+  color: var(--color-text-muted);
+  font-family: var(--font-display);
+  font-size: 9px;
+  font-style: italic;
+  cursor: pointer;
+  flex-shrink: 0;
+  background: transparent;
+  -webkit-tap-highlight-color: transparent;
+  line-height: 1;
+  vertical-align: middle;
+  margin-left: 5px;
+  transition: border-color 120ms, color 120ms;
+}
+
+.btn:hover,
+.btn.open {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.tip {
+  position: fixed;
+  z-index: 9999;
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border-strong);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-family: var(--font-display);
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  max-width: 220px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
