@@ -1,0 +1,318 @@
+.screen {
+  min-height: 100vh;
+  background: var(--color-bg);
+  padding: 16px 20px 40px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.backBtn {
+  background: transparent;
+  border: none;
+  color: var(--color-text-muted);
+  font-family: var(--font-display);
+  font-size: 13px;
+  cursor: pointer;
+  padding: 8px 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.heading {
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: var(--color-text-primary);
+  margin: 4px 0 16px;
+}
+
+/* ── Tab bar ── */
+
+.tabBar {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--color-border);
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+.tabBtn {
+  padding: 10px 14px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--color-text-muted);
+  font-family: var(--font-display);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 120ms, border-color 120ms;
+}
+
+.tabBtn.tabActive {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+}
+
+/* ── Panel ── */
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ── Field ── */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fieldLabel {
+  font-family: var(--font-display);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+}
+
+.select {
+  padding: 8px 12px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  color: var(--color-text-primary);
+  font-family: var(--font-display);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.chips {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  padding: 6px 12px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  color: var(--color-text-muted);
+  font-family: var(--font-display);
+  font-size: 11px;
+  cursor: pointer;
+  min-height: 34px;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 120ms, color 120ms, border-color 120ms;
+}
+
+.chip.chipActive {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #000;
+}
+
+.checkRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 12px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.runBtn {
+  padding: 12px 20px;
+  background: var(--color-accent);
+  border: none;
+  border-radius: 6px;
+  color: #000;
+  font-family: var(--font-display);
+  font-size: 13px;
+  cursor: pointer;
+  align-self: flex-start;
+  min-height: 44px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.runBtn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.runSmallBtn {
+  padding: 8px 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-accent);
+  border-radius: 4px;
+  color: var(--color-accent);
+  font-family: var(--font-display);
+  font-size: 11px;
+  cursor: pointer;
+  min-height: 36px;
+  align-self: flex-start;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.logBox {
+  padding: 12px;
+  background: var(--color-surface);
+  border-radius: 6px;
+  font-family: var(--font-display);
+  font-size: 11px;
+  color: var(--color-text-muted);
+  max-height: 160px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.resultBox {
+  padding: 12px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-family: var(--font-display);
+  font-size: 11px;
+  color: var(--color-text-muted);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* ── Template browser ── */
+
+.tmplItem {
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.tmplHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  background: var(--color-surface);
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tmplId {
+  font-family: var(--font-display);
+  font-size: 12px;
+  color: var(--color-accent);
+  min-width: 40px;
+}
+
+.tmplPattern {
+  font-family: var(--font-display);
+  font-size: 11px;
+  color: var(--color-text-muted);
+  flex: 1;
+}
+
+.tmplDims {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.dimPill {
+  font-family: var(--font-display);
+  font-size: 9px;
+  padding: 2px 5px;
+  background: var(--color-surface-raised);
+  border-radius: 3px;
+  color: var(--color-text-muted);
+}
+
+.tmplBody {
+  padding: 12px;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tmplDesc {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
+
+.tmplSentences {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tmplSentence {
+  font-family: var(--font-display);
+  font-size: 11px;
+  color: var(--color-text-muted);
+  display: flex;
+  gap: 6px;
+}
+
+.tmplNum {
+  color: var(--color-accent);
+  min-width: 14px;
+}
+
+/* ── Inspector sliders ── */
+
+.sliderRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sliderLabel {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  flex: 1;
+}
+
+.slider {
+  flex: 1;
+  max-width: 100px;
+  accent-color: var(--color-accent);
+}
+
+.sliderVal {
+  font-family: var(--font-display);
+  font-size: 13px;
+  color: var(--color-accent);
+  min-width: 16px;
+}
+
+/* ── Stress test ── */
+
+.stressResults {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stressRow {
+  font-family: var(--font-display);
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 4px;
+}
+
+.stressCorrect { background: rgba(72, 199, 142, 0.1); color: #48c78e; }
+.stressWrong   { background: rgba(249, 96, 96, 0.1);  color: #f96060; }

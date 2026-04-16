@@ -9,24 +9,19 @@ import { buildSession }    from '../engine/sessionBuilder.js'
 import { templates }       from '../data/templates.js'
 import StreamRenderer      from '../components/stream/StreamRenderer.jsx'
 import ProbeOverlay        from '../components/probes/ProbeOverlay.jsx'
+import ProgressRing        from '../components/ui/ProgressRing.jsx'
 import styles              from './SessionScreen.module.css'
 
 // ─── Session header ───────────────────────────────────────────────────────────
 
 function SessionHeader({ domain, format, revealedCount, totalCount }) {
-  const pct = totalCount > 0 ? Math.round((revealedCount / totalCount) * 100) : 0
   return (
     <div className={styles.header}>
       <div className={styles.badges}>
         <span className={styles.badge}>{domain}</span>
         <span className={styles.badge}>{format}</span>
       </div>
-      <div className={styles.progress}>
-        <div className={styles.progressBar}>
-          <div className={styles.progressFill} style={{ width: `${pct}%` }} />
-        </div>
-        <span className={styles.progressText}>{revealedCount}/{totalCount}</span>
-      </div>
+      <ProgressRing current={revealedCount} total={totalCount} />
     </div>
   )
 }

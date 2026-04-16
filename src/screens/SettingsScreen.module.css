@@ -1,0 +1,326 @@
+.screen {
+  min-height: 100vh;
+  background: var(--color-bg);
+  padding: 16px 20px 40px;
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* ── Nav ── */
+
+.backBtn {
+  background: transparent;
+  border: none;
+  color: var(--color-text-muted);
+  font-family: var(--font-display);
+  font-size: 13px;
+  cursor: pointer;
+  padding: 8px 0;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.heading {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--color-text-primary);
+}
+
+/* ── Sections ── */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-text-muted);
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* ── Row ── */
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 40px;
+}
+
+.rowLabel {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  color: var(--color-text-primary);
+  flex-shrink: 0;
+}
+
+/* ── Segmented control ── */
+
+.segmented {
+  display: flex;
+  gap: 2px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 2px;
+}
+
+.segBtn {
+  padding: 6px 10px;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  color: var(--color-text-muted);
+  font-family: var(--font-display);
+  font-size: 11px;
+  cursor: pointer;
+  min-height: 32px;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 120ms, color 120ms;
+}
+
+.segBtn.segActive {
+  background: var(--color-accent);
+  color: #000;
+}
+
+/* ── Toggle ── */
+
+.toggle {
+  width: 44px;
+  height: 26px;
+  background: var(--color-border);
+  border: none;
+  border-radius: 13px;
+  cursor: pointer;
+  position: relative;
+  transition: background 200ms;
+  flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.toggle.toggleOn {
+  background: var(--color-accent);
+}
+
+.toggleKnob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 200ms;
+}
+
+.toggle.toggleOn .toggleKnob {
+  transform: translateX(18px);
+}
+
+/* ── Domain grid ── */
+
+.domainGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+.domainBtn {
+  padding: 10px 12px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  color: var(--color-text-muted);
+  font-family: var(--font-display);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  min-height: 44px;
+  text-align: left;
+  transition: background 120ms, border-color 120ms, color 120ms;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.domainBtn.domainOn {
+  color: var(--color-text-primary);
+  border-color: var(--color-accent);
+  background: rgba(232, 255, 74, 0.05);
+}
+
+.domainBtn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* ── Override sliders ── */
+
+.overrideWarning {
+  font-family: var(--font-display);
+  font-size: 11px;
+  color: var(--color-text-muted);
+  padding: 6px 10px;
+  background: var(--color-surface);
+  border-radius: 4px;
+  border-left: 2px solid var(--color-accent);
+}
+
+.sliderRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sliderLabel {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  flex: 1;
+}
+
+.slider {
+  flex: 1;
+  max-width: 120px;
+  accent-color: var(--color-accent);
+}
+
+.sliderVal {
+  font-family: var(--font-display);
+  font-size: 13px;
+  color: var(--color-accent);
+  min-width: 16px;
+  text-align: center;
+}
+
+/* ── Data section ── */
+
+.subLabel {
+  font-family: var(--font-display);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+}
+
+.historyList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.historyRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  background: var(--color-surface);
+  border-radius: 5px;
+  border: 1px solid var(--color-border);
+}
+
+.histNum {
+  font-family: var(--font-display);
+  font-size: 11px;
+  color: var(--color-text-muted);
+  min-width: 28px;
+}
+
+.histType {
+  font-family: var(--font-display);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+  flex: 1;
+}
+
+.histScore {
+  font-family: var(--font-display);
+  font-size: 12px;
+  color: var(--color-accent);
+  min-width: 36px;
+  text-align: right;
+}
+
+.histDate {
+  font-family: var(--font-display);
+  font-size: 10px;
+  color: var(--color-text-muted);
+  min-width: 44px;
+  text-align: right;
+}
+
+.empty {
+  font-family: var(--font-display);
+  font-size: 11px;
+  color: var(--color-text-muted);
+  padding: 8px 0;
+}
+
+.resetArea {
+  padding-top: 4px;
+}
+
+.resetBtn {
+  padding: 12px 16px;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  color: #f96060;
+  font-family: var(--font-display);
+  font-size: 13px;
+  cursor: pointer;
+  min-height: 48px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.resetConfirm {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.resetWarning {
+  font-family: var(--font-display);
+  font-size: 12px;
+  color: #f96060;
+}
+
+.resetConfirmBtn {
+  padding: 10px 16px;
+  background: #f96060;
+  border: none;
+  border-radius: 6px;
+  color: #000;
+  font-family: var(--font-display);
+  font-size: 12px;
+  cursor: pointer;
+  min-height: 44px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.resetCancelBtn {
+  padding: 10px 16px;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  color: var(--color-text-muted);
+  font-family: var(--font-display);
+  font-size: 12px;
+  cursor: pointer;
+  min-height: 44px;
+  -webkit-tap-highlight-color: transparent;
+}

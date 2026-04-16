@@ -1,0 +1,32 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.num {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--color-text-primary);
+  line-height: 1;
+}
+
+.label {
+  font-family: var(--font-display);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+}
+
+.divider {
+  width: 1px;
+  height: 32px;
+  background: var(--color-border);
+}

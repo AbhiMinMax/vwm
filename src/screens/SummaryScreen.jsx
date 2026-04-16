@@ -1,32 +1,49 @@
-// SummaryScreen.jsx — session summary (functional placeholder for Step 7).
-// Full polish is in Step 8; this version shows real data and enables the
-// end-to-end session flow.
+// SummaryScreen.jsx — session summary with dimension scores, deltas, and next focus.
 
 import { useLocation, useNavigate } from 'react-router-dom'
-import { DIMENSION_LABELS } from '../engine/defaults.js'
-import styles from './SummaryScreen.module.css'
-
-function deltaArrow(v) {
-  if (v > 0.01)  return '↑'
-  if (v < -0.01) return '↓'
-  return '→'
-}
-
-function pct(v) {
-  return `${Math.round((v ?? 0) * 100)}%`
-}
+import { useStorage }   from '../hooks/useStorage.js'
+import { ALL_DIMENSIONS } from '../engine/defaults.js'
+import DimensionBar     from '../components/ui/DimensionBar.jsx'
+import SessionStats     from '../components/summary/SessionStats.jsx'
+import styles           from './SummaryScreen.module.css'
 
 export default function SummaryScreen() {
-  const location  = useLocation()
-  const navigate  = useNavigate()
-  const result    = location.state?.sessionResult
+  const location = useLocation()
+  const navigate = useNavigate()
+  const result   = location.state?.sessionResult
+
+  // Session history (last 10 for Settings screen to display)
+  const [, setHistory] = useStorage('vwm_session_history', [])
+
+  // Persist this session to history on first render (result present)
+  // Using a ref pattern via localStorage directly to avoid double-write
+  if (result && typeof window !== 'undefined') {
+    const key  = 'vwm_session_history'
+    const prev = (() => { try { return JSON.parse(localStorage.getItem(key) ?? '[]') } catch { return [] } })()
+    // Only add if not already the last entry (prevents double-write on re-render)
+    const last = prev[prev.length - 1]
+    if (!last || last.sessionId !== result.sessionId) {
+      const entry = {
+        sessionId:    result.sessionId,
+        sessionNumber: result.sessionNumber,
+        sessionType:  result.sessionType,
+        successRate:  result.successRate,
+        domain:       result.domain,
+        format:       result.format,
+        ts:           Date.now(),
+      }
+      const next = [...prev, entry].slice(-10)
+      localStorage.setItem(key, JSON.stringify(next))
+      // Sync React state
+      setHistory(next)
+    }
+  }
 
   if (!result) {
-    // Navigated here directly (e.g. dev refresh) — show fallback
     return (
       <div className={styles.screen}>
         <p className={styles.noData}>No session data.</p>
-        <button className={styles.btn} onClick={() => navigate('/')}>Home</button>
+        <button className={styles.secondaryBtn} onClick={() => navigate('/')}>Home</button>
       </div>
     )
   }
@@ -39,88 +56,74 @@ export default function SummaryScreen() {
     successRate,
     totalProbes,
     correctCount,
-    dimensionScores,
-    deltas,
+    dimensionScores = {},
+    deltas = {},
     durationMs,
+    probeResults = [],
   } = result
 
   const isAssessment = sessionType === 'assessment'
+  const stimuliCount = probeResults.length > 0 ? probeResults.length : totalProbes ?? 0
 
-  // Dimensions that were actually tested this session
-  const testedDims = Object.keys(dimensionScores ?? {})
+  // Dimensions tested this session, in canonical order
+  const testedDims = ALL_DIMENSIONS.filter(d => dimensionScores[d] !== undefined)
 
-  // Weakest dimension = lowest score
-  const weakestDim = testedDims.reduce((worst, dim) =>
-    (dimensionScores[dim] ?? 1) < (dimensionScores[worst] ?? 1) ? dim : worst,
-    testedDims[0]
-  )
+  // Weakest = lowest score among tested dims
+  const weakestDim = testedDims.length > 0
+    ? testedDims.reduce((w, d) => (dimensionScores[d] ?? 1) < (dimensionScores[w] ?? 1) ? d : w, testedDims[0])
+    : null
 
   return (
     <div className={styles.screen}>
-      {/* Session label */}
-      <div className={styles.sessionLabel}>
-        Session {sessionNumber ?? '—'}
+      {/* Header */}
+      <div className={styles.headerRow}>
+        <div className={styles.sessionLabel}>Session {sessionNumber ?? '—'}</div>
         <span className={styles.typeTag}>
           {isAssessment ? 'Calibration' : sessionType}
         </span>
       </div>
 
-      {/* Stats row */}
-      <div className={styles.statsRow}>
-        <div className={styles.stat}>
-          <span className={styles.statNum}>{pct(successRate)}</span>
-          <span className={styles.statLabel}>accuracy</span>
-        </div>
-        <div className={styles.stat}>
-          <span className={styles.statNum}>{correctCount ?? 0}/{totalProbes ?? 0}</span>
-          <span className={styles.statLabel}>probes</span>
-        </div>
-        {durationMs != null && (
-          <div className={styles.stat}>
-            <span className={styles.statNum}>{Math.round(durationMs / 1000)}s</span>
-            <span className={styles.statLabel}>duration</span>
-          </div>
-        )}
-      </div>
+      {/* Stats */}
+      <SessionStats
+        stimuliCount={stimuliCount}
+        probeCount={totalProbes ?? 0}
+        correctCount={correctCount ?? 0}
+      />
 
-      {/* Domain / format */}
-      <div className={styles.meta}>
-        <span className={styles.metaTag}>{domain}</span>
-        <span className={styles.metaTag}>{format}</span>
+      {/* Meta badges */}
+      <div className={styles.metaRow}>
+        <span className={styles.metaBadge}>{domain}</span>
+        <span className={styles.metaBadge}>{format}</span>
+        {durationMs != null && (
+          <span className={styles.metaBadge}>{Math.round(durationMs / 1000)}s</span>
+        )}
       </div>
 
       {/* Dimension scores */}
       {testedDims.length > 0 && (
         <div className={styles.dims}>
-          <div className={styles.dimsHeading}>Dimension scores</div>
-          {testedDims.map(dim => {
-            const score = dimensionScores[dim] ?? 0
-            const delta = deltas?.[dim] ?? 0
-            const isWeak = dim === weakestDim && testedDims.length > 1
-            return (
-              <div key={dim} className={`${styles.dimRow} ${isWeak ? styles.weak : ''}`}>
-                <div className={styles.dimName}>
-                  {DIMENSION_LABELS[dim] ?? dim}
-                  {isWeak && <span className={styles.weakTag}> focus</span>}
-                </div>
-                <div className={styles.dimBar}>
-                  <div className={styles.dimFill} style={{ width: `${score * 100}%` }} />
-                </div>
-                <div className={styles.dimScore}>{pct(score)}</div>
-                {!isAssessment && (
-                  <div className={`${styles.dimDelta} ${delta > 0.01 ? styles.up : delta < -0.01 ? styles.down : ''}`}>
-                    {deltaArrow(delta)}{Math.abs(delta) > 0.005 ? ` ${Math.round(Math.abs(delta) * 100)}` : ''}
-                  </div>
-                )}
-              </div>
-            )
-          })}
+          <div className={styles.dimsLabel}>Dimension scores</div>
+          {testedDims.map(dim => (
+            <DimensionBar
+              key={dim}
+              dimensionName={dim}
+              score={dimensionScores[dim]}
+              delta={isAssessment ? undefined : deltas[dim]}
+              highlight={dim === weakestDim && testedDims.length > 1}
+            />
+          ))}
+
+          {weakestDim && testedDims.length > 1 && !isAssessment && (
+            <div className={styles.focusHint}>
+              Next session focus: <strong>{weakestDim.replace(/_/g, ' ')}</strong>
+            </div>
+          )}
         </div>
       )}
 
       {isAssessment && (
         <p className={styles.assessNote}>
-          Baselines updated. Future sessions will be calibrated to your profile.
+          Baselines updated. Future sessions are calibrated to your profile.
         </p>
       )}
 

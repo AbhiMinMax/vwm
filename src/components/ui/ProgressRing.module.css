@@ -1,0 +1,19 @@
+.ring {
+  display: block;
+  transition: all 300ms ease-out;
+}
+
+.track {
+  stroke: var(--color-border);
+}
+
+.fill {
+  stroke: var(--color-accent);
+  transition: stroke-dashoffset 300ms ease-out;
+}
+
+.label {
+  font-family: var(--font-display);
+  font-size: 11px;
+  fill: var(--color-text-muted);
+}
